@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  client:
+    build:
+      context: ./client # Build context for the client
+    depends_on:
+      - server
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+
+  server:
+    build:
+      context: ./server # Build context for the server
+    depends_on:
+      - mongo
+    ports:
+      - '8082:8082'
+    environment:
+      NODE_ENV: development
+      MONGO_URI: mongodb+srv://uasflutter:iqGfjTJ5ZvSmu3Gd@test.lf8d8hm.mongodb.net/
+
+  mongo:
+    image: mongo:6
+    ports:
+      - '27017:27017'
+    # volumes:
+    #   - mongo-data:/data/db
+# volumes:
+#   mongo-data:
